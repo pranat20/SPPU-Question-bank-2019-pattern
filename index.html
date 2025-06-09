@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SPPU Question Bank (2019 Pattern)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      background: #f2f2f2;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007BFF;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .navbar h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      background-color: #0056b3;
+      border-radius: 5px;
+    }
+
+    .navbar a:hover {
+      background-color: #003f7f;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar nav {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .navbar a {
+        width: 100%;
+        margin-top: 5px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>SPPU PYQs (2019 Pattern)</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Main Form -->
+  <div class="container">
+    <h2>SPPU PYQ Search</h2>
+    <form id="searchForm" onsubmit="handleSubmit(event)">
+      <label for="branch">Select Branch</label>
+      <select id="branch" name="branch" required>
+        <option value="">--Select Branch--</option>
+        <option value="Computer">Computer Engineering</option>
+      </select>
+
+      <label for="semester">Select Semester</label>
+      <select id="semester" name="semester" required>
+        <option value="">--Select Semester--</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+        <option value="7">Semester 7</option>
+        <option value="8">Semester 8</option>
+      </select>
+
+      <label for="subject">Select Subject</label>
+      <select id="subject" name="subject" required>
+        <option value="">--Select Subject--</option>
+      </select>
+
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <script>
+    const subjects = {
+      'Computer': {
+        '1': ['BEE','BXE','Chemistry','Mathematics-I','Mechanics','Physics','PPS','SME'],
+        '2': ['BEE','BXE','Chemistry','Graphics','Mathematics-II','Mechanics','Physics','PPS','SME'],
+        '3': ['Computer Graphics','DELD','Discrete Mathematics','FDS','OOP'],
+        '4': ['DSA','Mathematics-III','Microprocessor','PPL','Software Engineering'],
+        '5': ['CNS','DMS','DSV','HCI','IT ES','SP OS','SPM','TOC'],
+        '6': ['AI','CC','DS BDA','SMD','WT'],
+        '7': ['BT','CSDF','D AOA','ML','Mobile Computing','ST QA'],
+        '8': ['Business Intelligence','Deep Learning','HPC','Natural Language Processing']
+      }
+    };
+
+    document.getElementById('semester').addEventListener('change', () => {
+      const branch = document.getElementById('branch').value;
+      const semester = document.getElementById('semester').value;
+      const subjectSelect = document.getElementById('subject');
+      subjectSelect.innerHTML = '<option value="">--Select Subject--</option>';
+
+      if (branch && semester && subjects[branch][semester]) {
+        subjects[branch][semester].forEach(sub => {
+          const option = document.createElement('option');
+          option.value = sub;
+          option.textContent = sub;
+          subjectSelect.appendChild(option);
+        });
+      }
+    });
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const branch = document.getElementById('branch').value;
+      const semester = document.getElementById('semester').value;
+      const subject = document.getElementById('subject').value;
+     const encodedSubject = encodeURIComponent(subject);
+window.location.href = `results.html?branch=${branch}&semester=${semester}&subject=${encodedSubject}`;
+    }
+  </script>
+  <!-- Footer -->
+<footer style="background-color:#007BFF; color:white; text-align:center; padding:15px 10px; margin-top:30px;">
+  &copy; SPPU PYQs 2019 Pattern. All rights reserved. <br>
+  Designed by <a href="https://pranatpagarportfolio.netlify.app/" target="_blank" style="color: #fff; text-decoration: underline;">Pranat Pagar</a>
+</footer>
+</div>
+</body>
+</html>

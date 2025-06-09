@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+   <title>SPPU Question Bank (2019 Pattern)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eaeaea;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007BFF;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .navbar h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      background-color: #0056b3;
+      border-radius: 5px;
+    }
+
+    .navbar a:hover {
+      background-color: #003f7f;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .pdf-list {
+      margin-top: 20px;
+    }
+
+    .pdf-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .pdf-item button {
+      margin-left: 10px;
+      background-color: #28a745;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .pdf-item button.download {
+      background-color: #17a2b8;
+    }
+
+    /* Responsive Navbar */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar nav {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .navbar a {
+        width: 100%;
+        margin-top: 5px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>SPPU PYQs (2019 Pattern)</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Content -->
+  <div class="container">
+    <h2>Previous Year Questions</h2>
+    <div id="info"></div>
+    <div class="pdf-list" id="pdfList"></div>
+  </div>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const branch = urlParams.get('branch');
+  const semester = urlParams.get('semester');
+  const subject = urlParams.get('subject');
+
+  document.getElementById('info').innerHTML = `<p><strong>Branch:</strong> ${branch}<br>
+    <strong>Semester:</strong> ${semester}<br>
+    <strong>Subject:</strong> ${subject}</p>`;
+
+  // Define available papers per subject
+  const paperCounts = {
+    'Computer': {
+      '1': {
+        'BEE': 5,
+        'BXE': 5,
+        'Chemistry': 5,
+        'Graphics': 5,
+        'Mathematics-I': 5,
+        'Mathematics-II': 5,
+        'Mechanics': 5,
+        'Physics': 5,
+        'PPs': 5,
+        'SME': 5
+
+      },
+      '2': {
+        'BEE': 5,
+        'BXE': 5,
+        'Chemistry': 5,
+        'Graphics': 5,
+        'Mathematics-I': 5,
+        'Mathematics-II': 5,
+        'Mechanics': 5,
+        'Physics': 5,
+        'PPs': 5,
+        'SME': 5
+      },
+
+      '3': {
+        'CG': 6,
+        'DELD': 7,
+        'DM': 7,
+        'FDS': 6,
+        'OOP': 7
+      },
+
+      '4': {
+        'DSA': 7,
+        'Mathematics-III': 7,
+        'Microprocessor': 6,
+        'PPL': 7,
+        'SE': 7,
+      },
+
+      '5': {
+        'CNS': 8,
+        'DMS': 8,
+        'DSV': 2,
+        'HCI': 3,
+        'IT ES': 8,
+        'SP OS': 8,
+        'SPM': 2,
+        'TOC': 8
+      },
+
+      '6': {
+        'AI': 7,
+        'CC': 7,
+        'DS BDA': 6,
+        'SMD': 1,
+        'WT': 7,
+      },
+
+      '7': {
+        'BT': 6,
+        'CS DF': 8,
+        'D AOA': 6,
+        'ML': 7,
+        'Mobile Computing': 4,
+        'ST & QA': 9,
+      },
+
+      '8': {
+        'Business Intelligence': 7,
+        'Deep Learning': 7,
+        'HPC': 4,
+        'Natural Language Processing': 5
+      }
+
+      
+    }
+  };
+
+  const totalPapers = paperCounts?.[branch]?.[semester]?.[subject] || 0;
+  const pdfList = document.getElementById('pdfList');
+
+  if (totalPapers === 0) {
+    pdfList.innerHTML = '<p>No question papers found for this subject.</p>';
+  } else {
+    for (let i = 1; i <= totalPapers; i++) {
+      const fileName = `${branch}_${semester}_${subject}_${i}.pdf`;
+const encodedFileName = encodeURIComponent(fileName);
+      const div = document.createElement('div');
+      div.className = 'pdf-item';
+      div.innerHTML = `
+        ${subject} Paper ${i}
+        <a href="pdfs/${fileName}" target="_blank"><button>View PDF</button></a>
+        <a href="pdfs/${fileName}" download><button class="download">Download PDF</button></a>
+      `;
+      pdfList.appendChild(div);
+    }
+  }
+</script>
+<!-- Footer -->
+<footer style="background-color:#007BFF; color:white; text-align:center; padding:15px 10px; margin-top:30px;">
+  &copy; SPPU PYQs 2019 Pattern. All rights reserved. <br>
+  Designed by <a href="https://pranatpagarportfolio.netlify.app/" target="_blank" style="color: #fff; text-decoration: underline;">Pranat Pagar</a>
+</footer>
+</body>
+</html>
